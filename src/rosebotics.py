@@ -210,7 +210,7 @@ class Camera(object):
 
 
 class ColorSensor(rb.ColorSensor):
-    """ Primary author of this class:  PUT_YOUR_NAME_HERE. """
+    """ Primary author of this class:  Jake Zhang. """
 
     def __init__(self, port=ev3.INPUT_3):
         super().__init__(port)
