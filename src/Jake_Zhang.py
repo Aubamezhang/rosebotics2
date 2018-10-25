@@ -13,11 +13,10 @@ def main():
 
 
 def run_test_wait_until_color_is():
-    sensor = rb.ColorSensor()
-    sensor.wait_until_color_is('black')
-
-
-
+    robot = rb.Snatch3rRobot()
+    color = 'black'
+    robot.color_sensor.wait_until_color_is(color)
+    print('Stop!')
 
 
 main()
