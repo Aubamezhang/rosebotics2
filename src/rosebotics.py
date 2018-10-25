@@ -173,18 +173,25 @@ class ArmAndClaw(object):
 
 
 class TouchSensor(rb.TouchSensor):
-    """ Primary author of this class:  PUT_YOUR_NAME_HERE. """
+    """ Primary author of this class:  Jake Zhang. """
 
     def __init__(self, port=ev3.INPUT_1):
         super().__init__(port)
 
     def wait_until_pressed(self):
         """ Waits (doing nothing new) until the touch sensor is pressed. """
-        # TODO.
+        while True:
+            if self.get_value() == 1:
+                break
+
+        # DONE.
 
     def wait_until_released(self):
         """ Waits (doing nothing new) until the touch sensor is released. """
-        # TODO
+        while True:
+            if self.get_value() == 0:
+                break
+        # DONE
 
 
 class Camera(object):
@@ -203,7 +210,10 @@ class ColorSensor(rb.ColorSensor):
         light intensity is less than the given value (threshold), which should
         be between 0 (no light reflected) and 100 (maximum light reflected).
         """
-        # TODO.
+        while True:
+            if self.get_reflected_intensity() < reflected_light_intensity:
+                break
+        # DONE.
 
     def wait_until_intensity_is_greater_than(self, reflected_light_intensity):
         """
