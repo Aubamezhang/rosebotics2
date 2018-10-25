@@ -16,7 +16,7 @@ def run_test_wait_until_color_is():
     robot = rb.Snatch3rRobot()
     color = 'black'
     robot.color_sensor.wait_until_color_is(color)
-    print('Stop!')
+    print('IT WORKS!')
 
 
 main()
