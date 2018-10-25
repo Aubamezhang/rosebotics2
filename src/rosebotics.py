@@ -109,8 +109,11 @@ class DriveSystem(object):
         # TODO:   from wheel-degrees-spun to robot-inches-moved.
         # TODO:   Assume that the conversion is linear with respect to speed.
         self.start_moving(duty_cycle_percent, duty_cycle_percent)
+        if time.time() == 5:
+            self.stop_moving(stop_action)
         return self.right_wheel.get_degrees_spun()
-        start time = time.time()
+
+
     def spin_in_place_degrees(self,
                               degrees,
                               duty_cycle_percent=100,
