@@ -144,7 +144,7 @@ class DriveSystem(object):
                      stop_action=StopAction.BRAKE):
 
         if degrees > 0:
-            while True
+            while True:
                 self.right_wheel.start_spinning(duty_cycle_percent)
                 if self.right_wheel.get_degrees_spun() == degrees:
                     self.right_wheel.stop_spinning(stop_action)
