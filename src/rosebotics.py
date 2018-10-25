@@ -111,15 +111,24 @@ class DriveSystem(object):
 
         self.start_moving(duty_cycle_percent, duty_cycle_percent)
         while True:
-            if self.right_wheel.get_degrees_spun() == 360:
+            if self.right_wheel.get_degrees_spun() == 90*inches:
                 self.stop_moving(stop_action)
                 break
 
-
+#test
     def spin_in_place_degrees(self,
                               degrees,
                               duty_cycle_percent=100,
                               stop_action=StopAction.BRAKE):
+
+        while True:
+            self.right_wheel.start_spinning(duty_cycle_percent)
+            self.left_wheel.start_spinning(-duty_cycle_percent)
+            if self.right_wheel.get_degrees_spun() == degrees:
+                self.left_wheel.stop_spinning(stop_action)
+                self.right_wheel.stop_spinning(stop_action)
+                break
+
         """
         Spin in place (i.e., both wheels move, in opposite directions)
         the given number of degrees, at the given speed (-100 to 100,
@@ -133,6 +142,16 @@ class DriveSystem(object):
                      degrees,
                      duty_cycle_percent=100,
                      stop_action=StopAction.BRAKE):
+
+        if degrees > 0:
+            self.right_wheel.start_spinning(duty_cycle_percent)
+            if self.right_wheel.get_degrees_spun() == degrees:
+                self.right_wheel.stop_spinning(stop_action)
+
+        if degrees < 0:
+            self.left_wheel.start_spinning(duty_cycle_percent)
+            if self.left_wheel.get_degrees_spun() == degrees:
+                self.left_wheel.stop_spinning(stop_action)
 
         """
         Turn (i.e., only one wheel moves)
