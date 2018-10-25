@@ -131,6 +131,7 @@ class DriveSystem(object):
                      degrees,
                      duty_cycle_percent=100,
                      stop_action=StopAction.BRAKE):
+
         """
         Turn (i.e., only one wheel moves)
         the given number of degrees, at the given speed (-100 to 100,
@@ -143,9 +144,10 @@ class DriveSystem(object):
 
 
 class ArmAndClaw(object):
+    """ Primary author of this class:  Samuel Dickinson """
     def __init__(self, touch_sensor, port=ev3.OUTPUT_A):
         self.motor = ev3.MediumMotor(port)
-        self.touch_sensor = touch_sensor
+        self.touch_sensor = touch_sensor()
         self.calibrate()  # Sets the motor's position to 0 at the DOWN position.
 
 
@@ -157,8 +159,7 @@ class ArmAndClaw(object):
         (Hence, 0 means all the way DOWN and XXX means all the way UP).
         """
         while True:
-            self.calibrate()
-            if self.touch_sensor():
+            if self.touch_sensor.wait_until_pressed():
                 break
 
     def raise_arm_and_close_claw(self):
@@ -167,7 +168,6 @@ class ArmAndClaw(object):
         Stop when the touch sensor is pressed.
         """
         while True:
-            self.raise_arm_and_close_claw()
             if self.touch_sensor():
                 break
 
@@ -196,6 +196,7 @@ class TouchSensor(rb.TouchSensor):
         """ Waits (doing nothing new) until the touch sensor is pressed. """
         while True:
             if self.get_value() == 1:
+                return True
                 break
 
         # DONE.
@@ -204,6 +205,7 @@ class TouchSensor(rb.TouchSensor):
         """ Waits (doing nothing new) until the touch sensor is released. """
         while True:
             if self.get_value() == 0:
+                return True
                 break
         # DONE
 
