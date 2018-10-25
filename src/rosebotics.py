@@ -151,25 +151,34 @@ class ArmAndClaw(object):
         Set the motor's position to 0 at that point.
         (Hence, 0 means all the way DOWN and XXX means all the way UP).
         """
-        # TODO
+        while True:
+            self.calibrate()
+            if self.touch_sensor():
+                break
 
     def raise_arm_and_close_claw(self):
         """
         Raise the arm (and hence close the claw).
         Stop when the touch sensor is pressed.
         """
-        # TODO
+        while True:
+            self.raise_arm_and_close_claw()
+            if self.touch_sensor():
+                break
 
     def lower_arm_and_open_claw(self):
         """
         Raise the arm (and hence close the claw).
         Stop when the touch sensor is pressed.
         """
-        # TODO
+        while True:
+            self.lower_arm_and_open_claw()
+            if self.touch_sensor():
+                break
 
     def move_arm_to_position(self, position):
         """ Spin the arm's motor until it reaches the given position. """
-        # TODO
+        self.move_arm_to_position(position)
 
 
 class TouchSensor(rb.TouchSensor):
