@@ -54,7 +54,7 @@ class Snatch3rRobot(object):
 class DriveSystem(object):
     """
     A class for driving (moving) the robot.
-    Primary authors:  entire team plus PUT_YOUR_NAME_HERE.
+    Primary authors:  entire team plus Alex Ketcham.
     """
 
     def __init__(self,
@@ -108,7 +108,9 @@ class DriveSystem(object):
         # TODO: Do a few experiments to determine the constant that converts
         # TODO:   from wheel-degrees-spun to robot-inches-moved.
         # TODO:   Assume that the conversion is linear with respect to speed.
-
+        self.start_moving(duty_cycle_percent, duty_cycle_percent)
+        return self.right_wheel.get_degrees_spun()
+        start time = time.time()
     def spin_in_place_degrees(self,
                               degrees,
                               duty_cycle_percent=100,
