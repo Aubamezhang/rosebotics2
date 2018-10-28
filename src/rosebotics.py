@@ -124,7 +124,7 @@ class DriveSystem(object):
         while True:
             self.right_wheel.start_spinning(duty_cycle_percent)
             self.left_wheel.start_spinning(-duty_cycle_percent)
-            if self.right_wheel.get_degrees_spun() == degrees:
+            if self.right_wheel.get_degrees_spun() == degrees or self.left_wheel.get_degrees_spun() == degrees:
                 self.left_wheel.stop_spinning(stop_action)
                 self.right_wheel.stop_spinning(stop_action)
                 break
@@ -202,13 +202,11 @@ class ArmAndClaw(object):
         Stop when the touch sensor is pressed.
         """
         while True:
-            self.lower_arm_and_open_claw()
             if self.touch_sensor():
                 break
 
     def move_arm_to_position(self, position):
         """ Spin the arm's motor until it reaches the given position. """
-        self.move_arm_to_position(position)
 
 
 class TouchSensor(rb.TouchSensor):
