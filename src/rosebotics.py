@@ -265,7 +265,7 @@ class ColorSensor(rb.ColorSensor):
         while True:
             if self.get_reflected_intensity() > reflected_light_intensity:
                 break
-        # DONE.
+        # DONE
 
     def wait_until_color_is(self, color):
         """
