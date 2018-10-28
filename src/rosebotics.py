@@ -121,8 +121,12 @@ class DriveSystem(object):
                               duty_cycle_percent=100,
                               stop_action=StopAction.BRAKE):
 
-        self.right_wheel.start_spinning(duty_cycle_percent)
-        self.left_wheel.start_spinning(-duty_cycle_percent)
+        if degrees > 0:
+            self.right_wheel.start_spinning(duty_cycle_percent)
+            self.left_wheel.start_spinning(-duty_cycle_percent)
+        if degrees < 0:
+            self.right_wheel.start_spinning(-duty_cycle_percent)
+            self.left_wheel.start_spinning(duty_cycle_percent)
         while True:
             if self.right_wheel.get_degrees_spun() == degrees or self.right_wheel.get_degrees_spun() == -degrees:
                 self.left_wheel.stop_spinning(stop_action)
@@ -144,18 +148,18 @@ class DriveSystem(object):
                      stop_action=StopAction.BRAKE):
 
         if degrees > 0:
+            self.right_wheel.start_spinning(duty_cycle_percent)
             while True:
-                self.right_wheel.start_spinning(duty_cycle_percent)
                 if self.right_wheel.get_degrees_spun() == degrees:
                     self.right_wheel.stop_spinning(stop_action)
                     break
 
-        while True:
-            if degrees < 0:
-                self.left_wheel.start_spinning(duty_cycle_percent)
-                if self.left_wheel.get_degrees_spun() == degrees:
-                    self.left_wheel.stop_spinning(stop_action)
-                    break
+        if degrees < 0:
+            self.left_wheel.start_spinning(duty_cycle_percent)
+            while True:
+                    if self.left_wheel.get_degrees_spun() == degrees:
+                        self.left_wheel.stop_spinning(stop_action)
+                        break
 
         """
         Turn (i.e., only one wheel moves)
