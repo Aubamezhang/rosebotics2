@@ -105,9 +105,9 @@ class DriveSystem(object):
         Go straight at the given speed (-100 to 100, negative is backwards)
         for the given number of inches, stopping with the given StopAction.
         """
-        # TODO: Do a few experiments to determine the constant that converts
-        # TODO:   from wheel-degrees-spun to robot-inches-moved.
-        # TODO:   Assume that the conversion is linear with respect to speed.
+        # DONE: Do a few experiments to determine the constant that converts
+        # DONE:   from wheel-degrees-spun to robot-inches-moved.
+        # DONE:   Assume that the conversion is linear with respect to speed.
 
         self.start_moving(duty_cycle_percent, duty_cycle_percent)
         while True:
@@ -124,7 +124,7 @@ class DriveSystem(object):
         while True:
             self.right_wheel.start_spinning(duty_cycle_percent)
             self.left_wheel.start_spinning(-duty_cycle_percent)
-            if self.right_wheel.get_degrees_spun() == (degrees * 100) or self.left_wheel.get_degrees_spun() == (degrees * 100):
+            if self.right_wheel.get_degrees_spun() == (degrees) or self.left_wheel.get_degrees_spun() == (degrees):
                 self.left_wheel.stop_spinning(stop_action)
                 self.right_wheel.stop_spinning(stop_action)
                 break
