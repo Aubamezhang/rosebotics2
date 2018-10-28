@@ -21,6 +21,6 @@ def run_test_wait_until_color_is():
 def run_test_wait_until_pressed():
     robot = rb.Snatch3rRobot()
     robot.touch_sensor.wait_until_pressed()
-    print('HOWDY')
+    print('HELLO')
 
 main()
