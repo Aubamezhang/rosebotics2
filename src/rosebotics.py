@@ -219,8 +219,9 @@ class TouchSensor(rb.TouchSensor):
         """ Waits (doing nothing new) until the touch sensor is pressed. """
         while True:
             if self.get_value() == 1:
-                return True
                 break
+
+
 
         # DONE.
 
@@ -228,8 +229,9 @@ class TouchSensor(rb.TouchSensor):
         """ Waits (doing nothing new) until the touch sensor is released. """
         while True:
             if self.get_value() == 0:
-                return True
                 break
+
+
         # DONE
 
 
