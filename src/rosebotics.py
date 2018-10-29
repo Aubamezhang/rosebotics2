@@ -177,14 +177,10 @@ class DriveSystem(object):
         # DONE:   from wheel-degrees-spun to robot-degrees-turned.
         # DONE:   Assume that the conversion is linear with respect to speed.
     def polygon(self, n):
-        self.spin_in_place_degrees(180 / n)
-        self.go_straight_inches(8 / n)
-        self.spin_in_place_degrees(180 / n)
-        self.go_straight_inches(8 / n)
-        self.spin_in_place_degrees(180 / n)
-        self.drive_system.go_straight_inches(8 / n)
-
-
+        for k in range(n):
+            self.spin_in_place_degrees(180 / n)
+            self.go_straight_inches(8 / n)
+        
 class ArmAndClaw(object):
     """ Primary author of this class:  Samuel Dickinson """
     def __init__(self, touch_sensor, port=ev3.OUTPUT_A):
