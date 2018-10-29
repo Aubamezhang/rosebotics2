@@ -179,8 +179,8 @@ class DriveSystem(object):
     def polygon(self, n):
         for k in range(n):
             self.spin_in_place_degrees(180 / n)
-            self.go_straight_inches(8 / n)
-        
+            self.go_straight_inches(15 / n)
+
 class ArmAndClaw(object):
     """ Primary author of this class:  Samuel Dickinson """
     def __init__(self, touch_sensor, port=ev3.OUTPUT_A):
