@@ -9,18 +9,18 @@ import time
 
 def main():
     """ Runs YOUR specific part of the project """
-    run_test_wait_until_color_is()
-    #run_test_wait_until_pressed()
+    # run_test_wait_until_color_is()
+    run_test_wait_until_pressed()
 
 def run_test_wait_until_color_is():
     robot = rb.Snatch3rRobot()
-    color = 'blue'
-    robot.color_sensor.wait_until_color_is(color)
-    print('STOPPP!')
+    color = rb.Color.BLACK.value
+    if robot.color_sensor.wait_until_color_is(color) == True:
+        print('STOP!')
 
 def run_test_wait_until_pressed():
     robot = rb.Snatch3rRobot()
-    robot.touch_sensor.wait_until_pressed()
-    print('HELLO')
+    if robot.touch_sensor.wait_until_pressed() == True:
+        print('STOP!')
 
 main()

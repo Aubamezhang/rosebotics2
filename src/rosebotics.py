@@ -234,9 +234,7 @@ class TouchSensor(rb.TouchSensor):
         """ Waits (doing nothing new) until the touch sensor is pressed. """
         while True:
             if self.get_value() == 1:
-                break
-
-
+                return True
 
         # DONE.
 
@@ -244,7 +242,7 @@ class TouchSensor(rb.TouchSensor):
         """ Waits (doing nothing new) until the touch sensor is released. """
         while True:
             if self.get_value() == 0:
-                break
+                return True
 
 
         # DONE
@@ -268,7 +266,7 @@ class ColorSensor(rb.ColorSensor):
         """
         while True:
             if self.get_reflected_intensity() < reflected_light_intensity:
-                break
+                return True
         # DONE.
 
     def wait_until_intensity_is_greater_than(self, reflected_light_intensity):
@@ -279,7 +277,7 @@ class ColorSensor(rb.ColorSensor):
         """
         while True:
             if self.get_reflected_intensity() > reflected_light_intensity:
-                break
+                return True
         # DONE
 
     def wait_until_color_is(self, color):
@@ -289,8 +287,9 @@ class ColorSensor(rb.ColorSensor):
         The given color must be a Color (as defined above).
         """
         while True:
+            print(self.get_color(), color)
             if self.get_color() == color:
-                break
+                return True
         # DONE.
 
     def wait_until_color_is_one_of(self, colors):
@@ -302,7 +301,7 @@ class ColorSensor(rb.ColorSensor):
         while True:
             for k in range(len(colors)):
                 if self.get_color() == colors[k]:
-                    break
+                    return True
         # DONE.
 
 
