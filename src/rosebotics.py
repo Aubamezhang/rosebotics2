@@ -113,6 +113,7 @@ class DriveSystem(object):
         while True:
             if self.right_wheel.get_degrees_spun() == 90*inches:
                 self.stop_moving(stop_action)
+                self.right_wheel.reset_degrees_spun()
                 break
 
 #test
