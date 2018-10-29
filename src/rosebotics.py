@@ -132,6 +132,7 @@ class DriveSystem(object):
             if self.right_wheel.get_degrees_spun() == (degrees * 5) or self.right_wheel.get_degrees_spun() == -(degrees * 5):
                 self.left_wheel.stop_spinning(stop_action)
                 self.right_wheel.stop_spinning(stop_action)
+                self.right_wheel.reset_degrees_spun()
                 break
 
         """
