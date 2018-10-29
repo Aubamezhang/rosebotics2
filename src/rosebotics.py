@@ -111,9 +111,8 @@ class DriveSystem(object):
 
         self.start_moving(duty_cycle_percent, duty_cycle_percent)
         while True:
-            if self.right_wheel.get_degrees_spun() == 90*inches:
+            if self.right_wheel.get_degrees_spun() > 90*inches:
                 self.stop_moving(stop_action)
-                self.right_wheel.reset_degrees_spun()
                 break
 
 #test
@@ -125,15 +124,20 @@ class DriveSystem(object):
         if degrees > 0:
             self.right_wheel.start_spinning(-duty_cycle_percent)
             self.left_wheel.start_spinning(duty_cycle_percent)
+            while True:
+                if -self.right_wheel.get_degrees_spun() > (degrees * 5):
+                    self.left_wheel.stop_spinning(stop_action)
+                    self.right_wheel.stop_spinning(stop_action)
+                    break
         if degrees < 0:
             self.right_wheel.start_spinning(duty_cycle_percent)
             self.left_wheel.start_spinning(-duty_cycle_percent)
-        while True:
-            if self.right_wheel.get_degrees_spun() == (degrees * 5) or self.right_wheel.get_degrees_spun() == -(degrees * 5):
-                self.left_wheel.stop_spinning(stop_action)
-                self.right_wheel.stop_spinning(stop_action)
-                self.right_wheel.reset_degrees_spun()
-                break
+            while True:
+                if self.right_wheel.get_degrees_spun() > -degrees * 5:
+                    self.left_wheel.stop_spinning(stop_action)
+                    self.right_wheel.stop_spinning(stop_action)
+                    break
+
 
         """
         Spin in place (i.e., both wheels move, in opposite directions)
