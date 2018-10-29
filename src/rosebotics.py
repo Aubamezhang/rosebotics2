@@ -178,8 +178,9 @@ class DriveSystem(object):
         # DONE:   Assume that the conversion is linear with respect to speed.
 
     def polygon(self, n):
+        self.spin_in_place_degrees(90)
         for k in range(n):
-            self.spin_in_place_degrees(((n - 2) * 180) / n)
+            self.spin_in_place_degrees(-180/n)
             self.go_straight_inches(15/n)
 
 
