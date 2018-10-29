@@ -177,6 +177,13 @@ class DriveSystem(object):
         # DONE:   from wheel-degrees-spun to robot-degrees-turned.
         # DONE:   Assume that the conversion is linear with respect to speed.
 
+        robot.drive_system.spin_in_place_degrees(180 / n)
+        robot.drive_system.go_straight_inches(8 / n)
+        robot.drive_system.spin_in_place_degrees(180 / n)
+        robot.drive_system.go_straight_inches(8 / n)
+        robot.drive_system.spin_in_place_degrees(180 / n)
+        robot.drive_system.go_straight_inches(8 / n)
+
 
 class ArmAndClaw(object):
     """ Primary author of this class:  Samuel Dickinson """

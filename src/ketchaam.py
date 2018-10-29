@@ -10,7 +10,14 @@ import time
 def main():
     """ Runs YOUR specific part of the project """
     robot = rb.Snatch3rRobot()
-    robot.drive_system.turn_degrees(-90)
+
+    robot.drive_system.spin_in_place_degrees(180/n)
+    robot.drive_system.go_straight_inches(8/n)
+    robot.drive_system.spin_in_place_degrees(180/n)
+    robot.drive_system.go_straight_inches(8/n)
+    robot.drive_system.spin_in_place_degrees(180/n)
+    robot.drive_system.go_straight_inches(8/n)
+
 
 #er
 main()
