@@ -176,13 +176,13 @@ class DriveSystem(object):
         # DONE: Do a few experiments to determine the constant that converts
         # DONE:   from wheel-degrees-spun to robot-degrees-turned.
         # DONE:   Assume that the conversion is linear with respect to speed.
-
-        robot.drive_system.spin_in_place_degrees(180 / n)
-        robot.drive_system.go_straight_inches(8 / n)
-        robot.drive_system.spin_in_place_degrees(180 / n)
-        robot.drive_system.go_straight_inches(8 / n)
-        robot.drive_system.spin_in_place_degrees(180 / n)
-        robot.drive_system.go_straight_inches(8 / n)
+    def polygon(self, n):
+        self.spin_in_place_degrees(180 / n)
+        self.go_straight_inches(8 / n)
+        self.spin_in_place_degrees(180 / n)
+        self.go_straight_inches(8 / n)
+        self.spin_in_place_degrees(180 / n)
+        self.drive_system.go_straight_inches(8 / n)
 
 
 class ArmAndClaw(object):
