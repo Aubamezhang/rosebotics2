@@ -121,6 +121,8 @@ class DriveSystem(object):
                               duty_cycle_percent=100,
                               stop_action=StopAction.BRAKE):
 
+        self.right_wheel.reset_degrees_spun()
+        self.left_wheel.reset_degrees_spun()
         if degrees > 0:
             self.right_wheel.start_spinning(-duty_cycle_percent)
             self.left_wheel.start_spinning(duty_cycle_percent)
@@ -152,7 +154,8 @@ class DriveSystem(object):
                      degrees,
                      duty_cycle_percent=100,
                      stop_action=StopAction.BRAKE):
-
+        self.left_wheel.reset_degrees_spun()
+        self.right_wheel.reset_degrees_spun()
         if degrees > 0:
             self.right_wheel.start_spinning(-duty_cycle_percent)
             while True:
@@ -178,10 +181,11 @@ class DriveSystem(object):
         # DONE:   Assume that the conversion is linear with respect to speed.
 
     def polygon(self, n):
-        self.spin_in_place_degrees(90)
+
         for k in range(n):
-            self.spin_in_place_degrees(-180/n)
-            self.go_straight_inches(15/n)
+            self.spin_in_place_degrees((180-(((n-2)*180)/n)), 75)
+            self.go_straight_inches(15 / n)
+
 
 
 class ArmAndClaw(object):
