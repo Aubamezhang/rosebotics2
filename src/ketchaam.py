@@ -5,7 +5,7 @@
 
 import rosebotics_new as rb
 import time
-
+import ev3dev.ev3 as ev3
 
 def main():
     """ Runs YOUR specific part of the project """
@@ -32,7 +32,8 @@ def run_test_polygon():
 def beep_if_blob_is_bigger_than(area):
     robot = rb.Snatch3rRobot()
     if robot.camera.get_biggest_blob().get_area() >= area:
-        robot.
+        ev3.Sound.beep()
+        
 
 
 main()
