@@ -3,16 +3,16 @@
   Fall term, 2018-2019.
 """
 
-import rosebotics as rb
+import rosebotics_new as rb
 import time
-
+import ev3dev.ev3 as ev3
 
 def main():
     """ Runs YOUR specific part of the project """
-
-    run_test_go_straight_inches()
-    run_test_polygon()
-    run_test_spin_degrees()
+    # run_test_go_straight_inches()
+    # run_test_polygon()
+    # run_test_spin_degrees()
+    beep_if_blob_is_bigger_than(80)
 
 def run_test_go_straight_inches():
     robot = rb.Snatch3rRobot()
@@ -29,6 +29,12 @@ def run_test_polygon():
     robot.drive_system.polygon(5)
     robot.drive_system.polygon(3)
     robot.drive_system.polygon(4)
+
+def beep_if_blob_is_bigger_than(area):
+    robot = rb.Snatch3rRobot()
+    robot.drive_system.start_moving(50, 50)
+    if robot.camera.get_biggest_blob().get_area() >= area:
+        ev3.Sound.beep()
 
 
 
