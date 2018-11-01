@@ -5,6 +5,8 @@
 
 import rosebotics as rb
 import time
+import ev3dev.ev3 as ev3
+import rosebotics_new as rbnew
 
 
 def main():
@@ -13,6 +15,7 @@ def main():
     # run_test_wait_until_pressed()
     # run_test_detect_colors()
     # run_test_ring()
+    proximity_sensor(12)
 
 def run_test_wait_until_color_is():
     robot = rb.Snatch3rRobot()
@@ -38,4 +41,13 @@ def run_test_ring():
         robot.drive_system.start_moving(30, 30)
         if robot.color_sensor.wait_until_intensity_is_greater_than(10) == True:
             robot.drive_system.spin_in_place_degrees(-50, 100)
+
+def proximity_sensor(inches):
+    robot = rbnew.Snatch3rRobot()
+    ir_sensor = robot.proximity_sensor
+    if ir_sensor.get_distance_to_nearest_object_in_inches() == inches:
+        ev3.Sound.beep()
+        print('STOP')
+
+
 main()
