@@ -34,7 +34,7 @@ def beep_if_blob_is_bigger_than(area):
     robot = rb.Snatch3rRobot()
     robot.drive_system.start_moving(50, 50)
     if robot.camera.get_biggest_blob().get_area() >= area:
-        robot.drive_system.stop_moving()
+        ev3.Sound.beep()
 
 
 
