@@ -2,7 +2,7 @@
   Capstone Project.
   This module contains high-level, general-purpose methods for a Snatch3r robot.
 
-  Team members:  PUT_YOUR_NAMES_HERE.
+  Team members:  Alex Ketcham, Samuel Dickinson, Jake Zhang
   Fall term, 2018-2019.
 """
 # TODO: Put your names in the above.
@@ -453,6 +453,7 @@ class Blob(object):
                 or self.is_against_right_edge()
                 or self.is_against_top_edge()
                 or self.is_against_bottom_edge())
+
 
 
 class InfraredAsProximitySensor(low_level_rb.InfraredSensor):

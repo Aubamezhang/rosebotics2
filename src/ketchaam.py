@@ -3,13 +3,12 @@
   Fall term, 2018-2019.
 """
 
-import rosebotics as rb
+import rosebotics_new as rb
 import time
 
 
 def main():
     """ Runs YOUR specific part of the project """
-
     run_test_go_straight_inches()
     run_test_polygon()
     run_test_spin_degrees()
@@ -30,6 +29,10 @@ def run_test_polygon():
     robot.drive_system.polygon(3)
     robot.drive_system.polygon(4)
 
+def beep_if_blob_is_bigger_than(area):
+    robot = rb.Snatch3rRobot()
+    if robot.camera.get_biggest_blob().get_area() >= area:
+        robot.
 
 
 main()
