@@ -676,8 +676,7 @@ class ArmAndClaw(object):
         # so we start with the ArmAndClaw in that position.
         self.calibrate()
 
-    def calibrate(self,
-                  stop_action=StopAction.BRAKE):
+    def calibrate(self):
         """
         Raise the arm at a reasonable speed until the touch sensor is pressed.
         Then lower the arm 14.2 revolutions (i.e., 14.2 * 360 degrees),
@@ -686,17 +685,16 @@ class ArmAndClaw(object):
         """
         # DONE: Do this as STEP 2 of implementing this class.
         self.raise_arm_and_close_claw(duty_cycle_percent=100)
-        self.motor.start_spinning(100)
+        self.motor.start_spinning(-100)
         while True:
-            if self.motor.get_degrees_spun() > (14.2 * 360):
-                self.motor.stop_spinning(stop_action)
+            if self.motor.get_degrees_spun() < (-14.2 * 360):
+                self.motor.stop_spinning()
                 self.motor.reset_degrees_spun()
 
 
 
     def raise_arm_and_close_claw(self,
-                                 duty_cycle_percent=100,
-                           stop_action=StopAction.BRAKE):
+                                 duty_cycle_percent=100):
         """
         Raise the arm (and hence close the claw), by making this ArmAndClaw
         object's motor start spinning at a reasonable speed (e.g. 100).
@@ -706,8 +704,8 @@ class ArmAndClaw(object):
         # DONE: Do this as STEP 1 of implementing this class.
         self.motor.start_spinning(duty_cycle_percent)
         while True:
-            if TouchSensor.wait_until_pressed(self):
-                self.motor.stop_spinning(stop_action)
+            if TouchSensor.wait_until_pressed(self.touch_sensor):
+                self.motor.stop_spinning()
                 break
 
 
