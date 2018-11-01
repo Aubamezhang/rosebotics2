@@ -4,5 +4,6 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../20-MoreLoopsWithinLoops" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../21-Exam3Practice" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../25-Tkinter" vcs="Git" />
   </component>
 </project>
