@@ -147,10 +147,10 @@ class DriveSystem(object):
     """
     A class for driving (moving) the robot.
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
-       their colleagues, the entire team, and PUT_YOUR_NAME_HERE.
+       their colleagues, the entire team, and Alex Ketcham and Samuel Dickinson.
     """
 
-    # TODO: In the above line, put the name of the primary author of this class.
+    # DONE: In the above line, put the name of the primary author of this class.
 
     def __init__(self,
                  left_wheel_port=ev3.OUTPUT_B,
@@ -291,7 +291,7 @@ class TouchSensor(low_level_rb.TouchSensor):
     """
     A class for an EV3 touch sensor.
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
-       their colleagues, the entire team, and PUT_YOUR_NAME_HERE.
+       their colleagues, the entire team, and Jake Zhang.
     """
 
     def __init__(self, port=ev3.INPUT_1):
@@ -659,9 +659,9 @@ class ArmAndClaw(object):
     """
     A class for the arm and its associated claw.
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
-    their colleagues, the entire team, and PUT_YOUR_NAME_HERE.
+    their colleagues, the entire team, and Samuel Dickinson.
     """
-    # TODO: In the above line, put the name of the primary author of this class.
+    # DONE: In the above line, put the name of the primary author of this class.
 
     def __init__(self, touch_sensor, port=ev3.OUTPUT_A):
         # The ArmAndClaw's  motor  is not really a Wheel, of course,
@@ -676,27 +676,53 @@ class ArmAndClaw(object):
         # so we start with the ArmAndClaw in that position.
         self.calibrate()
 
-    def calibrate(self):
+    def calibrate(self,
+                  stop_action=StopAction.BRAKE):
         """
         Raise the arm at a reasonable speed until the touch sensor is pressed.
         Then lower the arm 14.2 revolutions (i.e., 14.2 * 360 degrees),
         again at a reasonable speed. Then set the motor's position to 0.
         (Hence, 0 means all the way DOWN and 14.2 * 360 means all the way UP).
         """
-        # TODO: Do this as STEP 2 of implementing this class.
+        # DONE: Do this as STEP 2 of implementing this class.
+        self.raise_arm_and_close_claw(duty_cycle_percent=100)
+        self.motor.start_spinning(100)
+        while True:
+            if self.motor.get_degrees_spun() > (14.2 * 360):
+                self.motor.stop_spinning(stop_action)
+                self.motor.reset_degrees_spun()
 
-    def raise_arm_and_close_claw(self):
+
+
+    def raise_arm_and_close_claw(self,
+                                 duty_cycle_percent=100,
+                           stop_action=StopAction.BRAKE):
         """
         Raise the arm (and hence close the claw), by making this ArmAndClaw
         object's motor start spinning at a reasonable speed (e.g. 100).
         Positive speeds make the arm go UP; negative speeds make it go DOWN.
         Stop when the touch sensor is pressed.
         """
-        # TODO: Do this as STEP 1 of implementing this class.
+        # DONE: Do this as STEP 1 of implementing this class.
+        self.motor.start_spinning(duty_cycle_percent)
+        while True:
+            if TouchSensor.wait_until_pressed(self):
+                self.motor.stop_spinning(stop_action)
+                break
 
-    def move_arm_to_position(self, position):
+
+
+    def move_arm_to_position(self, position,
+                             duty_cycle_percent=100,
+                             stop_action=StopAction.BRAKE):
         """
         Spin the arm's motor until it reaches the given position.
         Move at a reasonable speed.
         """
-        # TODO: Do this as STEP 3 of implementing this class.
+        # DONE: Do this as STEP 3 of implementing this class.
+        self.calibrate()
+        self.motor.start_spinning(duty_cycle_percent)
+        while True:
+            if self.motor.get_degrees_spun() > position:
+                self.motor.start_spinning(stop_action)
+                break
