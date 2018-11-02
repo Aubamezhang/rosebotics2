@@ -12,7 +12,7 @@ def main():
     # run_test_go_straight_inches()
     # run_test_polygon()
     # run_test_spin_degrees()
-    beep_if_blob_is_bigger_than(80)
+    beep_if_blob_is_bigger_than(300)
 
 def run_test_go_straight_inches():
     robot = rb.Snatch3rRobot()
@@ -33,9 +33,13 @@ def run_test_polygon():
 def beep_if_blob_is_bigger_than(area):
     robot = rb.Snatch3rRobot()
     robot.drive_system.start_moving(50, 50)
-    if robot.camera.get_biggest_blob().get_area() >= area:
-        ev3.Sound.beep()
-        robot.drive_system.stop_moving()
+    while True:
+        if robot.camera.get_biggest_blob().get_area() >= area:
+            ev3.Sound.beep()
+            robot.drive_system.right_wheel.stop_spinning()
+            robot.drive_system.left_wheel.stop_spinning()
+            break
+
 
 
 

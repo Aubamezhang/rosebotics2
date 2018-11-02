@@ -5,7 +5,7 @@
   Team members:  Alex Ketcham, Samuel Dickinson, Jake Zhang
   Fall term, 2018-2019.
 """
-# TODO: Put your names in the above.
+# DONE: Put your names in the above.
 # TODO: Do the TODO's below.
 # TODO: Augment this module as appropriate, being sure to always
 # TODO:   ** coordinate with your teammates ** in doing so.
@@ -246,9 +246,9 @@ class DriveSystem(object):
         # DONE:   from wheel-degrees-spun to robot-degrees-spun.
         # DONE:   Assume that the conversion is linear with respect to speed.
 
-        # TODO: Do a few experiments to determine the constant that converts
-        # TODO:   from wheel-degrees-spun to robot-degrees-spun.
-        # TODO:   Assume that the conversion is linear with respect to speed.
+        # DONE: Do a few experiments to determine the constant that converts
+        # DONE:   from wheel-degrees-spun to robot-degrees-spun.
+        # DONE:   Assume that the conversion is linear with respect to speed.
 
     def turn_degrees(self,
                      degrees,
@@ -316,7 +316,7 @@ class ColorSensor(low_level_rb.ColorSensor):
     """
     A class for an EV3 color sensor.
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
-       their colleagues, the entire team, and PUT_YOUR_NAME_HERE.
+       their colleagues, the entire team, and Jake Zhang.
     """
 
     def __init__(self, port=ev3.INPUT_3):
@@ -378,7 +378,7 @@ class Camera(object):
         at: http://www.cmucam.org/projects/cmucam5/wiki/Teach_Pixy_an_object.
 
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
-       their colleagues, the entire team, and PUT_YOUR_NAME_HERE.
+       their colleagues, the entire team, and Alex Ketcham.
     """
 
     def __init__(self, port=ev3.INPUT_3):
