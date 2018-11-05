@@ -139,7 +139,7 @@ class Snatch3rRobot(object):
         self.brick_button_sensor = BrickButtonSensor()
 
         self.drive_system = DriveSystem(left_wheel_port, right_wheel_port)
-        #self.arm = ArmAndClaw(self.touch_sensor, arm_port)
+        self.arm = ArmAndClaw(self.touch_sensor, arm_port)
 
 
 class DriveSystem(object):
@@ -680,7 +680,7 @@ class ArmAndClaw(object):
         # Sets the motor's position to 0 (the DOWN position).
         # At the DOWN position, the robot fits in its plastic bin,
         # so we start with the ArmAndClaw in that position.
-        self.calibrate()
+        self.motor.reset_degrees_spun()
 
     def calibrate(self):
         """
@@ -728,5 +728,5 @@ class ArmAndClaw(object):
         self.motor.start_spinning(duty_cycle_percent)
         while True:
             if self.motor.get_degrees_spun() > position:
-                self.motor.start_spinning(stop_action)
+                self.motor.stop_spinning(stop_action)
                 break
