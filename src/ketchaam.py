@@ -12,7 +12,7 @@ def main():
     # run_test_go_straight_inches()
     # run_test_polygon()
     # run_test_spin_degrees()
-    beep_if_blob_is_bigger_than(300)
+    beep_if_blob_is_bigger_than(200)
 
 def run_test_go_straight_inches():
     robot = rb.Snatch3rRobot()
