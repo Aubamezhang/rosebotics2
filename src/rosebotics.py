@@ -310,10 +310,9 @@ class ColorSensor(rb.ColorSensor):
 
 
 class InfraredSensorAsProximitySensor(object):
-    """ Primary author of this class:  PUT_YOUR_NAME_HERE. """
+    """ Primary author of this class:  Jake Zhang. """
     def __init__(self, port=ev3.INPUT_4):
         super().__init__(port)
-
 
 class InfraredSensorAsBeaconSensor(object):
     """ Primary author of this class:  PUT_YOUR_NAME_HERE. """
