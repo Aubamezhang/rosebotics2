@@ -728,5 +728,5 @@ class ArmAndClaw(object):
         self.motor.start_spinning(duty_cycle_percent)
         while True:
             if self.motor.get_degrees_spun() > position:
-                self.motor.start_spinning(stop_action)
+                self.motor.stop_spinning(stop_action)
                 break
