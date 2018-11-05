@@ -35,6 +35,7 @@ def run_test_detect_colors():
     if robot.color_sensor.wait_until_color_is(color) == True:
         robot.drive_system.stop_moving()
 
+
 def run_test_ring():
     robot = rb.Snatch3rRobot()
     while True:
@@ -42,14 +43,19 @@ def run_test_ring():
         if robot.color_sensor.wait_until_intensity_is_greater_than(10) == True:
             robot.drive_system.spin_in_place_degrees(-50, 100)
 
+
 def proximity_sensor(inches_low, inches_high):
     robot = rbnew.Snatch3rRobot()
     ir_sensor = robot.proximity_sensor
-    robot.drive_system.start_moving(25, 25)
-    if ir_sensor.get_distance_to_nearest_object_in_inches() >= inches_low:
-        if ir_sensor.get_distance_to_nearest_object_in_inches() <= inches_high:
-            robot.drive_system.stop_moving()
-            ev3.Sound.beep()
-            print('STOPPED')
+    # robot.drive_system.start_moving(25, 25)
+    while True:
+        dist = ir_sensor.get_distance_to_nearest_object_in_inches()
+        print(dist)
+        time.sleep(.5)
+        # if ir_sensor.get_distance_to_nearest_object_in_inches() <= inches_high:
+        #     robot.drive_system.stop_moving()
+        #     ev3.Sound.beep()
+        #     print('STOPPED')
+        #     return
 
 main()
