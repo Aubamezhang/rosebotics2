@@ -9,9 +9,9 @@ import time
 
 def main():
     """ Runs YOUR specific part of the project """
-    run_test_turn_degrees()
-    run_test_spin_degrees()
-    run_test_ring()
+    #run_test_turn_degrees()
+    #run_test_spin_degrees()
+    #run_test_ring()
     run_test_ArmAndClaw()
 
 def run_test_spin_degrees():
@@ -26,8 +26,11 @@ def run_test_turn_degrees():
 
 def run_test_ArmAndClaw():
     robot = rb.Snatch3rRobot()
+    print("testing rasie arm close claw")
     robot.arm.raise_arm_and_close_claw(duty_cycle_percent=100)
+    print("testing calibrate")
     robot.arm.calibrate()
+    print("testing move to position")
     robot.arm.move_arm_to_position(360 * 6.2) #postion in degrees
 
 def run_test_ring():
