@@ -50,12 +50,10 @@ def proximity_sensor(inches_low, inches_high):
     # robot.drive_system.start_moving(25, 25)
     while True:
         dist = ir_sensor.get_distance_to_nearest_object_in_inches()
-        print(dist)
-        time.sleep(.5)
-        # if ir_sensor.get_distance_to_nearest_object_in_inches() <= inches_high:
-        #     robot.drive_system.stop_moving()
-        #     ev3.Sound.beep()
-        #     print('STOPPED')
-        #     return
+        if dist <= inches_high:
+            # robot.drive_system.stop_moving()
+            ev3.Sound.beep()
+            print('STOPPED')
+            return
 
 main()
