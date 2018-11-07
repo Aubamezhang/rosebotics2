@@ -8,7 +8,6 @@ It uses MQTT to SEND information to a program running on the ROBOT.
 Authors:  David Mutchler, his colleagues, and Alex Ketcham.
 """
 # ------------------------------------------------------------------------------
-# TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.  Then delete this TODO.
 # ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
@@ -52,17 +51,16 @@ import mqtt_remote_method_calls as com
 def main():
     """ Constructs and runs a GUI for this program. """
     root = tkinter.Tk()
-    setup_gui(root)
+    client = com.MqttClient()
+    client.connect_to_ev3()
+    setup_gui(root, client)
+
 
     root.mainloop()
-    # --------------------------------------------------------------------------
-    # TODO: 5. Add code above that constructs a   com.MqttClient   that will
-    # TODO:    be used to send commands to the robot.  Connect it to this pc.
-    # TODO:    Test.  When OK, delete this TODO.
-    # --------------------------------------------------------------------------
 
 
-def setup_gui(root_window):
+
+def setup_gui(root_window, client):
     """ Constructs and sets up widgets on the given window. """
     frame = ttk.Frame(root_window, padding=10)
     frame.grid()
@@ -74,19 +72,21 @@ def setup_gui(root_window):
     go_forward_button.grid()
 
     go_forward_button['command'] = \
-        lambda: handle_go_forward()
+        lambda: handle_go_forward(speed_entry_box, client)
 
 
-def handle_go_forward():
+def handle_go_forward(entry_box, client):
     """
     Tells the robot to go forward at the speed specified in the given entry box.
     """
     # --------------------------------------------------------------------------
-    # TODO: 6. This function needs the entry box in which the user enters
+    # DONE: 6. This function needs the entry box in which the user enters
     # TODO:    the speed at which the robot should move.  Make the 2 changes
     # TODO:    necessary for the entry_box constructed in  setup_gui
     # TODO:    to make its way to this function.  When done, delete this TODO.
     # --------------------------------------------------------------------------
+
+
 
     # --------------------------------------------------------------------------
     # TODO: 7. For this function to tell the robot what to do, it needs
