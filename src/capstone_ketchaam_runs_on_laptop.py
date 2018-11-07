@@ -51,8 +51,10 @@ import mqtt_remote_method_calls as com
 def main():
     """ Constructs and runs a GUI for this program. """
     root = tkinter.Tk()
+
     client = com.MqttClient()
     client.connect_to_ev3()
+
     setup_gui(root, client)
 
 
@@ -89,7 +91,7 @@ def handle_go_forward(entry_box, client):
 
 
     # --------------------------------------------------------------------------
-    # TODO: 7. For this function to tell the robot what to do, it needs
+    # DONE : 7. For this function to tell the robot what to do, it needs
     # TODO:    the MQTT client constructed in main.  Make the 4 changes
     # TODO:    necessary for that object to make its way to this function.
     # TODO:    When done, delete this TODO.
@@ -108,6 +110,8 @@ def handle_go_forward(entry_box, client):
     # TODO:
     # TODO:    Test by using a PRINT statement.  When done, delete this TODO.
     # --------------------------------------------------------------------------
-
+    speed_string = entry_box.get()
+    print('sending message')
+    client.send_message('go_forward', (speed_string))
 
 main()
