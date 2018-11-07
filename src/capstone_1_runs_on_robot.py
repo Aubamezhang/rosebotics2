@@ -26,7 +26,7 @@ def main():
         if robot.beacon_button_sensor.is_top_red_button_pressed():
             ev3.Sound.beep()
         if robot.beacon_button_sensor.is_top_blue_button_pressed():
-            ev3.Sound.speak("Hello")
+            ev3.Sound.speak("Hello, How are you?")
         time.sleep(0.01)  # For the delegate to do its work
 
 class RemoteControlEtc(object):
@@ -41,9 +41,7 @@ class RemoteControlEtc(object):
         '''Makes the robot go forward at the given speed'''
         print("Telling the robot to start moving at ", speed_string)
         speed = int(speed_string)
-        self.robot.drive_system.start_moving(speed)
-        self.robot.drive_system.start_moving(speed)
-
+        self.robot.drive_system.start_moving(speed, speed)
 
 
 main()
