@@ -112,6 +112,6 @@ def handle_go_forward(entry_box, client):
     # --------------------------------------------------------------------------
     speed_string = entry_box.get()
     print('sending message')
-    client.send_message('go_forward', (speed_string))
+    client.send_message('go_forward', [speed_string])
 
 main()

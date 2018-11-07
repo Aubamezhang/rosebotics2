@@ -37,7 +37,7 @@ def main():
     client = com.MqttClient(remote)
     client.connect_to_pc()
     # --------------------------------------------------------------------------
-    # TODO: 5. Add a class for your "delegate" object that will handle messages
+    # DONE: 5. Add a class for your "delegate" object that will handle messages
     # TODO:    sent from the laptop.  Construct an instance of the class and
     # TODO:    pass it to the MqttClient constructor above.  Augment the class
     # TODO:    as needed for that, and also to handle the go_forward message.
@@ -45,7 +45,7 @@ def main():
     # --------------------------------------------------------------------------
 
     # --------------------------------------------------------------------------
-    # TODO: 6. With your instructor, discuss why the following WHILE loop,
+    # DONE: 6. With your instructor, discuss why the following WHILE loop,
     # TODO:    that appears to do nothing, is necessary.
     # TODO:    When you understand this, delete this TODO.
     # --------------------------------------------------------------------------
@@ -57,17 +57,24 @@ def main():
         # TODO:    Beacon is pressed.  Test.  When done, delete this TODO.
         # ----------------------------------------------------------------------
         time.sleep(0.01)  # For the delegate to do its work
+        if robot.beacon_button_sensor.is_top_red_button_pressed() == True:
+            ev3.Sound.beep()
+        if robot.beacon_button_sensor.is_bottom_blue_button_pressed() == True:
+            ev3.Sound.speak('Hello. How are you?')
+
+
 
 class RemoteControl(object):
     def __init__(self, robot):
         """
-        :type robot: rb.SnatchrRobot
+        :type robot: rb.Snatch3rRobot
+
         """
         self.robot = robot
 
     def go_forward(self, speed_string):
         print('all clear')
         speed = int(speed_string)
-        self.robot.DriveSystem.start_moving(speed)
+        self.robot.drive_system.start_moving(speed, speed)
 
 main()
