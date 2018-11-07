@@ -724,6 +724,7 @@ class ArmAndClaw(object):
         Move at a reasonable speed.
         """
         # DONE: Do this as STEP 3 of implementing this class.
+        self.calibrate()
         self.motor.start_spinning(duty_cycle_percent)
         while True:
             if self.motor.get_degrees_spun() > position:
