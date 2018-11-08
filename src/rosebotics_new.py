@@ -695,17 +695,25 @@ class ArmAndClaw(object):
         (Hence, 0 means all the way DOWN and 14.2 * 360 means all the way UP).
         """
         # DONE: Do this as STEP 2 of implementing this class.
+        print("I got here 1")
         self.raise_arm_and_close_claw(duty_cycle_percent=100)
-        self.motor.start_spinning(-100)
+        print("I got here 2")
+        self.motor.reset_degrees_spun()
+        print("I got here 3")
+        self.motor.start_spinning(duty_cycle_percent=-100)
+        print("I got here 5")
         while True:
-            if self.motor.get_degrees_spun() < (-14.2 * 360):
+            if self.motor.get_degrees_spun() <= (-14.2 * 360):
                 self.motor.stop_spinning()
-                self.motor.reset_degrees_spun()
+                print("Stopped spinning")
+                break
+        self.motor.reset_degrees_spun()
 
 
 
     def raise_arm_and_close_claw(self,
-                                 duty_cycle_percent=100):
+                                 duty_cycle_percent=100,
+                                 stop_action = StopAction.BRAKE):
         """
         Raise the arm (and hence close the claw), by making this ArmAndClaw
         object's motor start spinning at a reasonable speed (e.g. 100).
@@ -714,10 +722,8 @@ class ArmAndClaw(object):
         """
         # DONE: Do this as STEP 1 of implementing this class.
         self.motor.start_spinning(duty_cycle_percent)
-        while True:
-            if TouchSensor.wait_until_pressed(self.touch_sensor):
-                self.motor.stop_spinning()
-                break
+        self.touch_sensor.wait_until_pressed()
+        self.motor.stop_spinning()
 
 
 
@@ -731,6 +737,6 @@ class ArmAndClaw(object):
         # DONE: Do this as STEP 3 of implementing this class.
         self.motor.start_spinning(duty_cycle_percent)
         while True:
-            if self.motor.get_degrees_spun() > position:
+            if self.motor.get_degrees_spun() >= position:
                 self.motor.stop_spinning(stop_action)
                 break
