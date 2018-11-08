@@ -166,8 +166,8 @@ class DriveSystem(object):
 
     def stop_moving(self, stop_action=StopAction.BRAKE):
         """ Stop moving, using the given StopAction. """
-        self.left_wheel.stop_spinning(stop_action)
-        self.right_wheel.stop_spinning(stop_action)
+        self.left_wheel.stop_spinning()
+        self.right_wheel.stop_spinning()
 
     def move_for_seconds(self,
                          seconds,
@@ -188,7 +188,7 @@ class DriveSystem(object):
         start_time = time.time()
         while True:
             if time.time() - start_time > seconds:
-                self.stop_moving(stop_action)
+                self.stop_moving()
                 break
 
     def go_straight_inches(self,
@@ -203,15 +203,17 @@ class DriveSystem(object):
         # DONE:   from wheel-degrees-spun to robot-inches-moved.
         # DONE:   Assume that the conversion is linear with respect to speed.
 
-        self.start_moving(duty_cycle_percent, duty_cycle_percent)
+        self.right_wheel.reset_degrees_spun()
         while True:
             if inches > 0:
+                self.start_moving(duty_cycle_percent, duty_cycle_percent)
                 if self.right_wheel.get_degrees_spun() > 90 * inches:
-                    self.stop_moving(stop_action)
+                    self.stop_moving()
                     break
             if inches < 0:
-                if self.right_wheel.get_degrees_spun() > -90 * inches:
-                    self.stop_moving(stop_action)
+                self.start_moving(-duty_cycle_percent, -duty_cycle_percent)
+                if self.right_wheel.get_degrees_spun() < 90 * inches:
+                    self.stop_moving()
                     break
 
     # test
@@ -227,16 +229,16 @@ class DriveSystem(object):
             self.left_wheel.start_spinning(duty_cycle_percent)
             while True:
                 if -self.right_wheel.get_degrees_spun() > (degrees * 5.35):
-                    self.left_wheel.stop_spinning(stop_action)
-                    self.right_wheel.stop_spinning(stop_action)
+                    self.left_wheel.stop_spinning()
+                    self.right_wheel.stop_spinning()
                     break
         if degrees < 0:
             self.right_wheel.start_spinning(duty_cycle_percent)
             self.left_wheel.start_spinning(-duty_cycle_percent)
             while True:
                 if self.right_wheel.get_degrees_spun() > (-degrees * 5.35):
-                    self.left_wheel.stop_spinning(stop_action)
-                    self.right_wheel.stop_spinning(stop_action)
+                    self.left_wheel.stop_spinning()
+                    self.right_wheel.stop_spinning()
                     break
 
         """
@@ -264,14 +266,14 @@ class DriveSystem(object):
             self.right_wheel.start_spinning(-duty_cycle_percent)
             while True:
                 if -self.right_wheel.get_degrees_spun() > (degrees * 5.35):
-                    self.right_wheel.stop_spinning(stop_action)
+                    self.right_wheel.stop_spinning()
                     break
 
         if degrees < 0:
             self.left_wheel.start_spinning(-duty_cycle_percent)
             while True:
                 if self.left_wheel.get_degrees_spun() < (-degrees * 5.35):
-                    self.left_wheel.stop_spinning(stop_action)
+                    self.left_wheel.stop_spinning()
                     break
 
         """
