@@ -11,7 +11,7 @@ def main():
     """ Runs YOUR specific part of the project """
     #run_test_turn_degrees()
     #run_test_spin_degrees()
-    run_test_ring()
+    #run_test_ring()
     #run_test_ArmAndClaw()
 
 def run_test_spin_degrees():
@@ -38,5 +38,5 @@ def run_test_ring():
     while True:
         robot.drive_system.start_moving(30, 30)
         if robot.color_sensor.wait_until_intensity_is_greater_than(10) == True:
-            robot.drive_system.spin_in_place_degrees(-50, 100)
+            robot.drive_system.spin_in_place_degrees(-10, 50)
 main()
