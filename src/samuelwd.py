@@ -11,8 +11,8 @@ def main():
     """ Runs YOUR specific part of the project """
     #run_test_turn_degrees()
     #run_test_spin_degrees()
-    #run_test_ring()
-    run_test_ArmAndClaw()
+    run_test_ring()
+    #run_test_ArmAndClaw()
 
 def run_test_spin_degrees():
     robot = rb.Snatch3rRobot()
