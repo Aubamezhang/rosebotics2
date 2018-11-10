@@ -86,6 +86,6 @@ def capstone_test():
     entry_box.grid(row=2, column=1)
     root.mainloop()
 
-l
+
 main()
 
