@@ -53,6 +53,7 @@ def capstone_test(root, robot):
     frame.rowconfigure(1, weight=1)
     frame.rowconfigure(2, weight=1)
     frame.rowconfigure(3, weight=1)
+
     down_arrow = ttk.Button(frame, text='↓', width=20)
     down_arrow.grid(row=1, column=1)
     down_arrow['command'] = (lambda: robot_down(robot))
@@ -69,6 +70,14 @@ def capstone_test(root, robot):
     left_arrow.grid(row=1, column=0)
     left_arrow['command'] = (lambda: robot_left(robot))
 
+    upleft_arrow = ttk.Button(frame, text = '↖', width=20)
+    upleft_arrow.grid(row=0, column=0)
+    upleft_arrow['command'] = (lambda: robot_upleft(robot))
+
+    upright_arrow = ttk.Button(frame, text='↗', width=20)
+    upright_arrow.grid(row=0, column=2)
+    upright_arrow['command'] = (lambda: robot_upright(robot))
+
     stop = ttk.Button(frame, text='STOP', width=50)
     stop.grid(row=3, column=3)
     stop['command'] = (lambda: robot_stop(robot))
@@ -76,6 +85,9 @@ def capstone_test(root, robot):
     entry_box = ttk.Entry(frame, width=20)
     entry_box.grid(row=2, column=1)
 
+    speakb = ttk.Button(frame, text='Speak!', width=20)
+    speakb.grid(row=1, column=3)
+    speakb['command'] = (lambda: speak(robot, entry_box.get()))
 
     root.mainloop()
 
@@ -103,13 +115,17 @@ def robot_stop(robot):
     robot.send_message('stop')
     print('sent')
 
+def robot_upleft(robot):
+    robot.send_message('upleft')
+    print('sent')
 
+def robot_upright(robot):
+    robot.send_message('upright')
+    print('sent')
 
-
-
-
-
-
+def speak(robot, entry_contents):
+    robot.send_message('speak', entry_contents)
+    print('sent')
 
 
 

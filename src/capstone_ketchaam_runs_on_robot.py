@@ -30,7 +30,7 @@ def main():
     robot = rb.Snatch3rRobot()
 
 
-    remote = RemoteControl(robot)
+    remote = RemoteControl(robot, ev3)
 
     client = com.MqttClient(remote)
 
@@ -41,12 +41,13 @@ def main():
 
 
 class RemoteControl(object):
-    def __init__(self, robot):
+    def __init__(self, robot, ev3):
         """
         :type robot: rb.Snatch3rRobot
 
         """
         self.robot = robot
+        self.ev3 = ev3
 
     def go_forward(self, speed_string):
         print('all clear')
@@ -75,6 +76,17 @@ class RemoteControl(object):
         print('received')
         self.robot.drive_system.stop_moving()
 
+    def upleft(self):
+        print('received')
+        self.robot.drive_system.spin_in_place_degrees(45)
+
+    def upright(self):
+        print('received')
+        self.robot.drive_system.spin_in_place_degrees(-45)
+
+    def speak(self, entry):
+        print('received')
+        self.ev3.Sound.speak(entry)
 
 def run(robot, client):
 
