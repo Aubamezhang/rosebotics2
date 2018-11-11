@@ -14,6 +14,7 @@ Authors:  David Mutchler, his colleagues, and Alex Ketcham.
 import tkinter
 from tkinter import ttk
 import mqtt_remote_method_calls as com
+import time
 
 
 
@@ -38,10 +39,11 @@ def capstone_test(root, robot):
     frame.columnconfigure(0, weight=1)
     frame.columnconfigure(1, weight=1)
     frame.columnconfigure(2, weight=1)
+    frame.columnconfigure(3, weight=1)
     frame.rowconfigure(0, weight=1)
     frame.rowconfigure(1, weight=1)
     frame.rowconfigure(2, weight=1)
-
+    frame.rowconfigure(3, weight=1)
     down_arrow = ttk.Button(frame, text='↓', width=20)
     down_arrow.grid(row=1, column=1)
     down_arrow['command'] = (lambda: robot_down(robot))
@@ -58,32 +60,41 @@ def capstone_test(root, robot):
     left_arrow.grid(row=1, column=0)
     left_arrow['command'] = (lambda: robot_left(robot))
 
+    stop = ttk.Button(frame, text='STOP', width=50)
+    stop.grid(row=3, column=3)
+    stop['command'] = (lambda: robot_stop(robot))
+
     entry_box = ttk.Entry(frame, width=20)
     entry_box.grid(row=2, column=1)
-    entry_contents = entry_box.get()
 
-    # while True:
-    #     if robot.color_sensor.wait_until_color_is(entry_contents):
-    #         ev3.Sound.speak(entry_contents)
-    #         break
 
     root.mainloop()
 
+
+
+
+
 def robot_down(robot):
-    print('sent')
     robot.send_message('down')
+    print('sent')
 
 def robot_up(robot):
     robot.send_message('up')
     print('sent')
 
 def robot_right(robot):
-    print('sent')
     robot.send_message('right')
+    print('sent')
 
 def robot_left(robot):
-    print('sent')
     robot.send_message('left')
+    print('sent')
+
+def robot_stop(robot):
+    robot.send_message('stop')
+    print('sent')
+
+
 
 
 

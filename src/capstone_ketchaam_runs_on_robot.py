@@ -28,16 +28,16 @@ import ev3dev.ev3 as ev3
 def main():
 
     robot = rb.Snatch3rRobot()
-    print('complete')
+
 
     remote = RemoteControl(robot)
-    print('complete2')
-    client = com.MqttClient(remote)
-    print('complete3')
-    client.connect_to_pc()
-    print('complete4')
 
-    # beacon_test(robot)
+    client = com.MqttClient(remote)
+
+    client.connect_to_pc()
+
+
+    run(robot)
 
 
 class RemoteControl(object):
@@ -54,22 +54,47 @@ class RemoteControl(object):
         self.robot.drive_system.start_moving(speed, speed)
 
     def down(self):
-        print('recieved')
+        print('received')
         self.robot.drive_system.start_moving(-100, -100)
 
     def up(self):
-        print('recieved')
+        print('received')
         self.robot.drive_system.start_moving(100, 100)
 
     def right(self):
-        print('recieved')
+        print('received')
         self.robot.drive_system.spin_in_place_degrees(90)
         self.robot.drive_system.start_moving(100, 100)
 
     def left(self):
-        print('recieved')
+        print('received')
         self.robot.drive_system.spin_in_place_degrees(-90)
         self.robot.drive_system.start_moving(100, 100)
+
+    def stop(self):
+        print('received')
+        self.robot.drive_system.stop_moving()
+
+
+def run(robot):
+
+    while True:
+
+        if robot.proximity_sensor.get_distance_to_nearest_object() < 50:
+            ev3.Sound.beep()
+            robot.drive_system.move_for_seconds(1, -100, -100)
+            robot.drive_system.stop_moving()
+
+        time.sleep(0.01)
+
+
+
+
+
+
+
+
+
 
 def beacon_test(robot):
 
@@ -83,6 +108,8 @@ def beacon_test(robot):
             ev3.Sound.speak('Hello. How are you?')
 
         time.sleep(0.01)  # For the delegate to do its work
+
+
 
 
 
