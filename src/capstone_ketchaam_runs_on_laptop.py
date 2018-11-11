@@ -22,7 +22,8 @@ def main():
     """ Constructs and runs a GUI for this program. """
     root = tkinter.Tk()
 
-    client = com.MqttClient()
+    server = SERVER()
+    client = com.MqttClient(server)
     client.connect_to_ev3()
 
     # setup_gui(root, client)
@@ -30,6 +31,14 @@ def main():
     capstone_test(root, client)
 
     root.mainloop()
+
+class SERVER(object):
+
+    def almost(self):
+        print('That was a close call!')
+
+    def touch(self):
+        print('No! Dont touch that!')
 
 
 def capstone_test(root, robot):

@@ -37,7 +37,7 @@ def main():
     client.connect_to_pc()
 
 
-    run(robot)
+    run(robot, client)
 
 
 class RemoteControl(object):
@@ -76,7 +76,7 @@ class RemoteControl(object):
         self.robot.drive_system.stop_moving()
 
 
-def run(robot):
+def run(robot, client):
 
     while True:
 
@@ -84,6 +84,11 @@ def run(robot):
             ev3.Sound.beep()
             robot.drive_system.move_for_seconds(1, -100, -100)
             robot.drive_system.stop_moving()
+            client.send_message('almost')
+
+        if robot.touch_sensor.value() == 1:
+            ev3.Sound.beep()
+            client.send_message('touch')
 
         time.sleep(0.01)
 
