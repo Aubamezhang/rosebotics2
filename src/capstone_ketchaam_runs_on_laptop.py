@@ -10,42 +10,11 @@ Authors:  David Mutchler, his colleagues, and Alex Ketcham.
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-# ------------------------------------------------------------------------------
-# TODO: 2. With your instructor, discuss the "big picture" of laptop-robot
-# TODO:    communication:
-# TODO:      - One program runs on your LAPTOP.  It displays a GUI.  When the
-# TODO:        user presses a button intended to make something happen on the
-# TODO:        ROBOT, the LAPTOP program sends a message to its MQTT client
-# TODO:        indicating what it wants the ROBOT to do, and the MQTT client
-# TODO:        SENDS that message TO a program running on the ROBOT.
-# TODO:
-# TODO:      - Another program runs on the ROBOT. It stays in a loop, responding
-# TODO:        to events on the ROBOT (like pressing buttons on the IR Beacon).
-# TODO:        It also, in the background, listens for messages TO the ROBOT
-# TODO:        FROM the program running on the LAPTOP.  When it hears such a
-# TODO:        message, it calls the method in the DELAGATE object's class
-# TODO:        that the message indicates, sending arguments per the message.
-# TODO:
-# TODO:  Once you understand the "big picture", delete this TODO (if you wish).
-# ------------------------------------------------------------------------------
-
-# ------------------------------------------------------------------------------
-# TODO: 3. One team member: change the following in mqtt_remote_method_calls.py:
-#                LEGO_NUMBER = 99
-# TODO:    to use YOUR robot's number instead of 99.
-# TODO:    Commit and push the change, then other team members Update Project.
-# TODO:    Then delete this TODO.
-# ------------------------------------------------------------------------------
-
-# ------------------------------------------------------------------------------
-# TODO: 4. Run this module.
-# TODO:    Study its code until you understand how the GUI is set up.
-# TODO:    Then delete this TODO.
-# ------------------------------------------------------------------------------
 
 import tkinter
 from tkinter import ttk
 import mqtt_remote_method_calls as com
+
 
 
 def main():
@@ -55,10 +24,74 @@ def main():
     client = com.MqttClient()
     client.connect_to_ev3()
 
-    setup_gui(root, client)
+    # setup_gui(root, client)
 
+    capstone_test(root, client)
 
     root.mainloop()
+
+
+def capstone_test(root, robot):
+    frame = ttk.Frame(root, padding=150)
+    frame.grid()
+
+    frame.columnconfigure(0, weight=1)
+    frame.columnconfigure(1, weight=1)
+    frame.columnconfigure(2, weight=1)
+    frame.rowconfigure(0, weight=1)
+    frame.rowconfigure(1, weight=1)
+    frame.rowconfigure(2, weight=1)
+
+    down_arrow = ttk.Button(frame, text='↓', width=20)
+    down_arrow.grid(row=1, column=1)
+    down_arrow['command'] = (lambda: robot_down(robot))
+
+    up_arrow = ttk.Button(frame, text='↑', width=20)
+    up_arrow.grid(row=0, column=1)
+    up_arrow['command'] = (lambda: robot_up(robot))
+
+    right_arrow = ttk.Button(frame, text='→', width=20)
+    right_arrow.grid(row=1, column=2)
+    right_arrow['command'] = (lambda: robot_right(robot))
+
+    left_arrow = ttk.Button(frame, text='←', width=20)
+    left_arrow.grid(row=1, column=0)
+    left_arrow['command'] = (lambda: robot_left(robot))
+
+    entry_box = ttk.Entry(frame, width=20)
+    entry_box.grid(row=2, column=1)
+    entry_contents = entry_box.get()
+
+    # while True:
+    #     if robot.color_sensor.wait_until_color_is(entry_contents):
+    #         ev3.Sound.speak(entry_contents)
+    #         break
+
+    root.mainloop()
+
+def robot_down(robot):
+    print('sent')
+    robot.send_message('down')
+
+def robot_up(robot):
+    robot.send_message('up')
+    print('sent')
+
+def robot_right(robot):
+    print('sent')
+    robot.send_message('right')
+
+def robot_left(robot):
+    print('sent')
+    robot.send_message('left')
+
+
+
+
+
+
+
+
 
 
 
@@ -81,35 +114,6 @@ def handle_go_forward(entry_box, client):
     """
     Tells the robot to go forward at the speed specified in the given entry box.
     """
-    # --------------------------------------------------------------------------
-    # DONE: 6. This function needs the entry box in which the user enters
-    # TODO:    the speed at which the robot should move.  Make the 2 changes
-    # TODO:    necessary for the entry_box constructed in  setup_gui
-    # TODO:    to make its way to this function.  When done, delete this TODO.
-    # --------------------------------------------------------------------------
-
-
-
-    # --------------------------------------------------------------------------
-    # DONE : 7. For this function to tell the robot what to do, it needs
-    # TODO:    the MQTT client constructed in main.  Make the 4 changes
-    # TODO:    necessary for that object to make its way to this function.
-    # TODO:    When done, delete this TODO.
-    # --------------------------------------------------------------------------
-
-    # --------------------------------------------------------------------------
-    # TODO: 8. Add the single line of code needed to get the string that is
-    # TODO:    currently in the entry box.
-    # TODO:
-    # TODO:    Then add the single line of code needed to "call" a method on the
-    # TODO:    LISTENER that runs on the ROBOT, where that LISTENER is the
-    # TODO:    "delegate" object that is constructed when the ROBOT's code
-    # TODO:    runs on the ROBOT.  Send to the delegate the speed to use
-    # TODO:    plus a method name that you will implement in the DELEGATE's
-    # TODO:    class in the module that runs on the ROBOT.
-    # TODO:
-    # TODO:    Test by using a PRINT statement.  When done, delete this TODO.
-    # --------------------------------------------------------------------------
     speed_string = entry_box.get()
     print('sending message')
     client.send_message('go_forward', [speed_string])

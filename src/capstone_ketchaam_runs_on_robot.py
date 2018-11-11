@@ -16,26 +16,28 @@ Authors:  David Mutchler, his colleagues, and Alex Ketcham.
 # ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
-from tkinter.ttk import Frame
+
 
 import rosebotics_new as rb
 import time
 import mqtt_remote_method_calls as com
 import ev3dev.ev3 as ev3
-import tkinter
-from tkinter import ttk
+
 
 
 def main():
 
     robot = rb.Snatch3rRobot()
+    print('complete')
 
     remote = RemoteControl(robot)
+    print('complete2')
     client = com.MqttClient(remote)
+    print('complete3')
     client.connect_to_pc()
+    print('complete4')
 
     # beacon_test(robot)
-    capstone_test(robot)
 
 
 class RemoteControl(object):
@@ -51,6 +53,24 @@ class RemoteControl(object):
         speed = int(speed_string)
         self.robot.drive_system.start_moving(speed, speed)
 
+    def down(self):
+        print('recieved')
+        self.robot.drive_system.start_moving(-100, -100)
+
+    def up(self):
+        print('recieved')
+        self.robot.drive_system.start_moving(100, 100)
+
+    def right(self):
+        print('recieved')
+        self.robot.drive_system.spin_in_place_degrees(90)
+        self.robot.drive_system.start_moving(100, 100)
+
+    def left(self):
+        print('recieved')
+        self.robot.drive_system.spin_in_place_degrees(-90)
+        self.robot.drive_system.start_moving(100, 100)
+
 def beacon_test(robot):
 
     while True:
@@ -64,57 +84,8 @@ def beacon_test(robot):
 
         time.sleep(0.01)  # For the delegate to do its work
 
-def capstone_test(robot):
-    root = tkinter.Tk()
-    frame = ttk.Frame(root, padding=150)
-    frame.grid()
 
-    frame.columnconfigure(0, weight=1)
-    frame.columnconfigure(1, weight=1)
-    frame.columnconfigure(2, weight=1)
-    frame.rowconfigure(0, weight=1)
-    frame.rowconfigure(1, weight=1)
-    frame.rowconfigure(2, weight=1)
 
-    down_arrow = ttk.Button(frame, text='↓', width=20)
-    down_arrow.grid(row=1, column=1)
-    down_arrow['command'] = (lambda: down(robot))
-
-    up_arrow = ttk.Button(frame, text='↑', width=20)
-    up_arrow.grid(row=0, column=1)
-    up_arrow['command'] = (lambda: up(robot))
-
-    right_arrow = ttk.Button(frame, text='→', width=20)
-    right_arrow.grid(row=1, column=2)
-    right_arrow['command'] = (lambda: right(robot))
-
-    left_arrow = ttk.Button(frame, text='←', width=20)
-    left_arrow.grid(row=1, column=0)
-    left_arrow['command'] = (lambda: left(robot))
-
-    entry_box = ttk.Entry(frame, width=20)
-    entry_box.grid(row=2, column=1)
-    entry_contents = entry_box.get()
-
-    while True:
-        if robot.color_sensor.wait_until_color_is(entry_contents):
-            ev3.Sound.speak(entry_contents)
-            break
-    root.mainloop()
-
-def down(robot):
-    robot.DriveSystem.start_moving(-100, -100)
-
-def up(robot):
-    robot.DriveSystem.start_moving(100, 100)
-
-def right(robot):
-    robot.DriveSystem.spin_in_place_degrees(90)
-    robot.DriveSystem.start_moving(100, 100)
-
-def left(robot):
-    robot.DriveSystem.spin_in_place_degrees(-90)
-    robot.DriveSystem.start_moving(100, 100)
 
 main()
 
