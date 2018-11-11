@@ -87,7 +87,7 @@ def capstone_test(root, robot):
 
     speakb = ttk.Button(frame, text='Speak!', width=20)
     speakb.grid(row=1, column=3)
-    speakb['command'] = (lambda: speak(robot, entry_box.get()))
+    speakb['command'] = (lambda: speak(robot, [entry_box.get()]))
 
     root.mainloop()
 
@@ -124,7 +124,7 @@ def robot_upright(robot):
     print('sent')
 
 def speak(robot, entry_contents):
-    robot.send_message('speak', entry_contents)
+    robot.send_message('speak', [entry_contents])
     print('sent')
 
 

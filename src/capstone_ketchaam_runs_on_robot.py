@@ -65,12 +65,10 @@ class RemoteControl(object):
     def right(self):
         print('received')
         self.robot.drive_system.spin_in_place_degrees(90)
-        self.robot.drive_system.start_moving(100, 100)
 
     def left(self):
         print('received')
         self.robot.drive_system.spin_in_place_degrees(-90)
-        self.robot.drive_system.start_moving(100, 100)
 
     def stop(self):
         print('received')
@@ -98,7 +96,7 @@ def run(robot, client):
             robot.drive_system.stop_moving()
             client.send_message('almost')
 
-        if robot.touch_sensor.value() == 1:
+        if robot.touch_sensor.get_value() == 1:
             ev3.Sound.beep()
             client.send_message('touch')
 
