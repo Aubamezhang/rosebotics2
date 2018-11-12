@@ -65,22 +65,40 @@ def main():
 
 def setup_gui(root_window, mqtt_client):
     """ Constructs and sets up widgets on the given window. """
-    frame = ttk.Frame(root_window, padding=10)
+    frame = ttk.Frame(root_window, padding=100)
     frame.grid()
 
-    speed_entry_box = ttk.Entry(frame)
-    go_forward_button = ttk.Button(frame, text="Go forward")
+    # speed_entry_box = ttk.Entry(frame)
+    # go_forward_button = ttk.Button(frame, text="Go forward")
 
     detect_entry_box = ttk.Entry(frame)
-    detect_within_button = ttk.Button(frame, text='Stop when Robot is within:')
+    detect_within_button = ttk.Button(frame, text='Speak when Robot is within:')
 
-    go_forward_button.grid()
-    speed_entry_box.grid()
+    # go_forward_button.grid()
+    # speed_entry_box.grid()
     detect_within_button.grid()
     detect_entry_box.grid()
 
-    go_forward_button['command'] = (lambda: handle_go_forward(speed_entry_box, mqtt_client))
+    route1 = ttk.Radiobutton(frame, text='Straight Route',
+                             value='straight')
+    route2 = ttk.Radiobutton(frame, text='Circle Route',
+                             value='circle')
+    route3 = ttk.Radiobutton(frame, text='Rectangle Route', 
+                             value='rectangle')
+    route1.grid()
+    route2.grid()
+    route3.grid()
+
+    radio_observer = tkinter.StringVar()
+    for radio in [route1, route2, route3]:
+        radio['variable'] = radio_observer
+
+    for radio in [route1, route2, route3]:
+        radio.grid(sticky='w')
+
+    # go_forward_button['command'] = (lambda: handle_go_forward(speed_entry_box, mqtt_client))
     detect_within_button['command'] = (lambda: handle_detect_distance(detect_entry_box, mqtt_client))
+    route1['command'] = (lambda: handle_route1(mqtt_client))
 
 
 
@@ -94,6 +112,12 @@ def handle_detect_distance(entry_box, mqtt_client):
     distance_string = entry_box.get()
     print('Sending the detect_distance with distance', distance_string, 'in')
     mqtt_client.send_message('detect_distance', [distance_string])
+
+def handle_route1(mqtt_client):
+    print('Straight route is selected')
+    mqtt_client.send_message('route1')
+
+def route():
 
     """
     Tells the robot to go forward at the speed specified in the given entry box.

@@ -20,7 +20,7 @@ def main():
 
     robot = rb.Snatch3rRobot()
     ir_sensor = robot.proximity_sensor
-    rc = RemoteControlEtc(robot, ir_sensor)
+    rc = RemoteControlEtc(robot, ir_sensor, ev3)
     mqtt_client = com.MqttClient(rc)
     mqtt_client.connect_to_pc()
 
@@ -33,9 +33,10 @@ def main():
 
 
 class RemoteControlEtc(object):
-    def __init__(self, robot, ir_sensor):
+    def __init__(self, robot, ir_sensor, ev3):
         self.robot = robot
         self.proximity = ir_sensor
+        self.ev3 = ev3
         """
         Store the robot.
             :type robot: rb.Snatch3rRobot
@@ -47,14 +48,20 @@ class RemoteControlEtc(object):
         self.robot.drive_system.start_moving(speed, speed)
 
     def detect_distance(self, distance_string):
-        print('Robot will stop within', distance_string, ' inches to object')
+        print('Robot will speak within', distance_string, 'inches to object')
         distance = int(distance_string)
-        while True:
-            self.robot.drive_system.start_moving(50, 50)
-            if self.proximity.get_distance_to_nearest_object_in_inches() <= distance:
-                self.robot.drive_system.stop_moving()
-                print('Robot is within stopping distance')
-                break
+        inches = self.proximity.get_distance_to_nearest_object_in_inches()
+        if inches <= distance:
+            ev3.Sound.speak('checking object')
+
+    def route1(self):
+        print('Robot will move in straight route')
+        self.robot.drive_system.start_moving(75, 75)
+        # robot will drive a certain distance, if any object is detected, it will check the object and determine
+        # whether or not it is trash. If it is trash, the robot will pick it up and take it back to start, if not, the
+        # robot will pick it up and move it out of the way.
+
+
 
 
 
