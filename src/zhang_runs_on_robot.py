@@ -19,8 +19,8 @@ import ev3dev.ev3 as ev3
 def main():
 
     robot = rb.Snatch3rRobot()
-    proximity_sensor = robot.proximity_sensor
-    rc = RemoteControlEtc(robot, proximity_sensor)
+    ir_sensor = robot.proximity_sensor
+    rc = RemoteControlEtc(robot, ir_sensor)
     mqtt_client = com.MqttClient(rc)
     mqtt_client.connect_to_pc()
 
@@ -33,9 +33,9 @@ def main():
 
 
 class RemoteControlEtc(object):
-    def __init__(self, robot, proximity_sensor ):
+    def __init__(self, robot, ir_sensor):
         self.robot = robot
-        self.proximity_sensor = proximity_sensor
+        self.proximity = ir_sensor
         """
         Store the robot.
             :type robot: rb.Snatch3rRobot
@@ -49,6 +49,12 @@ class RemoteControlEtc(object):
     def detect_distance(self, distance_string):
         print('Robot will stop within', distance_string, ' inches to object')
         distance = int(distance_string)
+        while True:
+            self.robot.drive_system.start_moving(50, 50)
+            if self.proximity.get_distance_to_nearest_object_in_inches() <= distance:
+                self.robot.drive_system.stop_moving()
+                print('Robot is within stopping distance')
+                break
 
 
 

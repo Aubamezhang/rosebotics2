@@ -79,10 +79,8 @@ def setup_gui(root_window, mqtt_client):
     detect_within_button.grid()
     detect_entry_box.grid()
 
-    go_forward_button['command'] = \
-        lambda: handle_go_forward(speed_entry_box, mqtt_client)
-    detect_within_button['command'] = \
-        lambda: detect_distance(detect_entry_box, mqtt_client)
+    go_forward_button['command'] = (lambda: handle_go_forward(speed_entry_box, mqtt_client))
+    detect_within_button['command'] = (lambda: handle_detect_distance(detect_entry_box, mqtt_client))
 
 
 
@@ -92,10 +90,10 @@ def handle_go_forward(entry_box, mqtt_client):
     print('Sending the go_forward_message with speed', speed_string)
     mqtt_client.send_message('go_forward', [speed_string])
 
-def detect_distance(entry_box, mqtt_client):
+def handle_detect_distance(entry_box, mqtt_client):
     distance_string = entry_box.get()
-    print('Sending the detect_distance with distance', distance_string)
-    mqtt_client.send_message('stop when within', [distance_string])
+    print('Sending the detect_distance with distance', distance_string, 'in')
+    mqtt_client.send_message('detect_distance', [distance_string])
 
     """
     Tells the robot to go forward at the speed specified in the given entry box.
