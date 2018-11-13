@@ -14,7 +14,7 @@ import rosebotics_new as rb
 import time
 import mqtt_remote_method_calls as com
 import ev3dev.ev3 as ev3
-
+import random
 
 def main():
 
@@ -56,7 +56,26 @@ class RemoteControlEtc(object):
 
     def route1(self):
         print('Robot will move in straight route')
-        self.robot.drive_system.start_moving(75, 75)
+        self.robot.drive_system.move_for_seconds(5, 75, 75)
+        self.robot.drive_system.spin_in_place_degrees(180, 75, 75)
+        self.robot.drive_system.move_for_seconds(5, 75, 75)
+        if self.proximity.get_distance_to_nearest_object_in_inches() <= 8:
+            if self.proximity.get_distance_to_nearest_object_in_inches() >= 3:
+                self.robot.drive_system.go_straight_inches(self.proximity.get_distance_to_nearest_object_in_inches() - 1)
+
+
+    def route2(self):
+        print('Robot will move in circular route')
+        rng_loop = random.randint(1, 5)
+        for x in range(rng_loop):
+            rng_speed = random.randint(50, 100)
+            rng_degrees = random.randint(-180, 180)
+            rng_inches = random.randint(3, 20)
+            self.robot.drive_system.go_straight_inches(rng_inches, rng_speed, rng_speed)
+            self.robot.drive_system.spin_in_place_degrees(rng_degrees, rng_speed, rng_speed)
+
+
+
         # robot will drive a certain distance, if any object is detected, it will check the object and determine
         # whether or not it is trash. If it is trash, the robot will pick it up and take it back to start, if not, the
         # robot will pick it up and move it out of the way.
