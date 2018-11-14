@@ -94,10 +94,11 @@ def run(robot, client):
             ev3.Sound.beep()
             robot.drive_system.move_for_seconds(1, -100, -100)
             robot.drive_system.stop_moving()
+            ev3.Sound.speak('Get out of my way!')
             client.send_message('almost')
 
         if robot.touch_sensor.get_value() == 1:
-            ev3.Sound.beep()
+            ev3.Sound.speak('No! Dont touch that!')
             client.send_message('touch')
 
         time.sleep(0.01)

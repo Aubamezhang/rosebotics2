@@ -35,7 +35,7 @@ def main():
 class SERVER(object):
 
     def almost(self):
-        print('That was a close call!')
+        print('Get out of my way!')
 
     def touch(self):
         print('No! Dont touch that!')
