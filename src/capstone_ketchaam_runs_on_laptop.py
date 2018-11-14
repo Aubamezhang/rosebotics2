@@ -40,6 +40,9 @@ class SERVER(object):
     def touch(self):
         print('No! Dont touch that!')
 
+    def bright(self, intensity):
+        print(intensity)
+
 
 def capstone_test(root, robot):
     frame = ttk.Frame(root, padding=150)

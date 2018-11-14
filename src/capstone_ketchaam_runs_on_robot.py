@@ -101,6 +101,10 @@ def run(robot, client):
             ev3.Sound.speak('No! Dont touch that!')
             client.send_message('touch')
 
+        if robot.color_sensor.get_reflected_intensity() > 60:
+            ev3.Sound.speak('Its getting pretty bright in hear.')
+            client.send_message('bright', robot.color_sensor.get_reflected_intensity())
+
         time.sleep(0.01)
 
 
