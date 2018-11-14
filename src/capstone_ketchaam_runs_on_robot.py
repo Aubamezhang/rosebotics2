@@ -76,11 +76,11 @@ class RemoteControl(object):
 
     def upleft(self):
         print('received')
-        self.robot.drive_system.spin_in_place_degrees(45)
+        self.robot.drive_system.spin_in_place_degrees(-45)
 
     def upright(self):
         print('received')
-        self.robot.drive_system.spin_in_place_degrees(-45)
+        self.robot.drive_system.spin_in_place_degrees(45)
 
     def speak(self, entry):
         print('received')
@@ -101,9 +101,11 @@ def run(robot, client):
             ev3.Sound.speak('No! Dont touch that!')
             client.send_message('touch')
 
+
         if robot.color_sensor.get_reflected_intensity() > 60:
             ev3.Sound.speak('Its getting pretty bright in hear.')
             client.send_message('bright', robot.color_sensor.get_reflected_intensity())
+
 
         time.sleep(0.01)
 
