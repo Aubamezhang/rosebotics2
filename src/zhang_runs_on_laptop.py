@@ -71,13 +71,9 @@ def setup_gui(root_window, mqtt_client):
     # speed_entry_box = ttk.Entry(frame)
     # go_forward_button = ttk.Button(frame, text="Go forward")
 
-    detect_entry_box = ttk.Entry(frame)
-    detect_within_button = ttk.Button(frame, text='Speak when Robot is within:')
-
     # go_forward_button.grid()
     # speed_entry_box.grid()
-    detect_within_button.grid()
-    detect_entry_box.grid()
+
 
     route1 = ttk.Radiobutton(frame, text='Straight Route',
                              value='straight')
@@ -96,7 +92,6 @@ def setup_gui(root_window, mqtt_client):
         radio.grid(sticky='w')
 
     # go_forward_button['command'] = (lambda: handle_go_forward(speed_entry_box, mqtt_client))
-    detect_within_button['command'] = (lambda: handle_detect_distance(detect_entry_box, mqtt_client))
     route1['command'] = (lambda: handle_route1(mqtt_client))
     route2['command'] = (lambda: handle_route2(mqtt_client))
 
